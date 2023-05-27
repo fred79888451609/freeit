@@ -1,0 +1,40 @@
+
+import torch
+import os
+from torch import nn
+from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize
+from diffusers import StableDiffusionPromptNetPipeline, StableDiffusionInpaintPipeline
+from transformers import AutoProcessor, CLIPModel
+from torchvision.transforms import InterpolationMode
+from tqdm import tqdm
+from accelerate import Accelerator
+import torchvision.transforms as T
+import random
+
+BICUBIC = InterpolationMode.BICUBIC
+from PIL import Image
+from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler, DDIMScheduler, DDPMScheduler
+torch.manual_seed(0)
+
+# This examples was implemented on A6000
+
+def sampling_kwargs(step=50, prompt="in Ghibli style", cfg=5.0, ref_cfg=5.0, residual=0.0, fusion=True, 
+                    refine_step=0, refine_eta=1., refine_emb_scale=0.7, refine_cfg=5.0):
+    kwargs = {}
+    kwargs["num_inference_steps"] = step 
+    # This is for simplicity, revise it if you want something else
+    kwargs["prompt"] = "a holder " + prompt 
+    kwargs["guidance_scale"] = cfg 
+    kwargs["res_prompt_scale"] = residual
+    if fusion: # if we use a reference prompt for structure information fusion
+        kwargs["ref_prompt"] = "a person  " + prompt
+        kwargs["guidance_scale_ref"] = ref_cfg  # also can use different scale
+        kwargs["refine_step"] = refine_step  # when refine_step == 0, it means we assume conditions are independent (which leads to worse results)
+        kwargs["refine_eta"] = refine_eta
+        kwargs["refine_emb_scale"] = refine_emb_scale 
+        kwargs["refine_guidance_scale"] = refine_cfg            
+    else:
+        kwargs["ref_prompt"] = None
+        kwargs["guidance_scale_ref"] = 0.
+        kwargs["refine_step"] = 0
+    return kwargs

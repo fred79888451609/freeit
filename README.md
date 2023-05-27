@@ -7,3 +7,6 @@
   archivePrefix={arXiv},
   primaryClass={cs.CV}
 }
+Remember: first come, first serve. If there exists an implementation in your language of choice, contribute to it!
+
+If not, start by copying LANG_TEMPLATE folder:

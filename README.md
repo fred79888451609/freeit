@@ -1,12 +1,16 @@
-# freeit
-@misc{zhou2023enhancing,
-  title={Enhancing Detail Preservation for Customized Text-to-Image Generation: A Regularization-Free Approach}, 
-  author={Yufan Zhou and Ruiyi Zhang and Tong Sun and Jinhui Xu},
-  year={2023},
-  eprint={2305.13579},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV}
-}
-Remember: first come, first serve. If there exists an implementation in your language of choice, contribute to it!
+What does it do?
+This program allows you to generate endless Windows XP keys. You also can use it to check your already existing keys.
 
-If not, start by copying LANG_TEMPLATE folder:
+How does it work?
+This program is based on this paper Basically, it uses a cracked private key from Microsoft to sign some stuff encoded in the 25-digit product key. It also does this process in reverse to check for the validation of the keys.
+
+How do I use it?
+It all comes down to four simple steps:
+
+1. Use this program to generate a key, and use such key during installation.
+
+2. After installation, you will be prompted to activate Windows. Select the telephone activation method, then, fire up this website and enter the installation ID that the activation wizard gave you.
+
+3. Click "Next"
+
+4. Profit!

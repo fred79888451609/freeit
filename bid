@@ -38,46 +38,14 @@ st.set_page_config(
     page_icon=":robot:"
 )
 
-st.title('Formula 1 Chatbot')
-st.subheader("Help us help you learn about Formula 1")
-
-if 'generated' not in st.session_state:
-    st.session_state['generated'] = []
-
-if 'past' not in st.session_state:
-    st.session_state['past'] = []
-
-def query(question):
-    response = st.session_state['chat'].ask_assistant(question)
-    return response
-
-prompt = st.text_input(f"What do you want to know: ", key="input")
-
-if st.button('Submit', key='generationSubmit'):
-
-    # Initialization
-    if 'chat' not in st.session_state:
-        st.session_state['chat'] = RetrievalAssistant()
-        messages = []
-        system_message = Message('system',system_prompt)
-        messages.append(system_message.message())
-    else:
-        messages = []
-
-
-    user_message = Message('user',prompt)
-    messages.append(user_message.message())
-
-    response = query(messages)
-
-    # Debugging step to print the whole response
-    #st.write(response)
-
-    st.session_state.past.append(prompt)
-    st.session_state.generated.append(response['content'])
-
-if st.session_state['generated']:
-
-    for i in range(len(st.session_state['generated'])-1, -1, -1):
-        message(st.session_state["generated"][i], key=str(i))
-        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+{
+  "name": "anything-llm-frontend",
+  "private": false,
+  "version": "0.0.1-beta",
+  "type": "module",
+  "scripts": {
+    "start": "vite --open",
+    "build": "vite build",
+    "lint": "yarn prettier --write ./src",
+    "preview": "vite preview"
+  }
